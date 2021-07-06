@@ -1,0 +1,19 @@
+Step	Img/sec	total_loss
+1	images/sec: 119.8 +/- 0.0 (jitter = 0.0)	8.108
+10	images/sec: 119.8 +/- 0.3 (jitter = 0.7)	8.122
+20	images/sec: 119.8 +/- 0.2 (jitter = 0.8)	7.983
+30	images/sec: 119.7 +/- 0.2 (jitter = 0.7)	7.780
+40	images/sec: 119.8 +/- 0.1 (jitter = 0.8)	7.848
+50	images/sec: 119.7 +/- 0.1 (jitter = 0.9)	7.779
+60	images/sec: 119.6 +/- 0.1 (jitter = 0.9)	7.826
+70	images/sec: 119.6 +/- 0.1 (jitter = 1.0)	7.839
+80	images/sec: 119.6 +/- 0.1 (jitter = 1.0)	7.818
+90	images/sec: 119.5 +/- 0.1 (jitter = 1.1)	7.647
+100	images/sec: 119.3 +/- 0.1 (jitter = 1.1)	7.916
+----------------------------------------------------------------
+total images/sec: 119.25
+----------------------------------------------------------------
+
+real	0m55.867s
+user	0m0.115s
+sys	0m0.103s

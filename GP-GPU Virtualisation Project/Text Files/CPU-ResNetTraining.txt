@@ -1,0 +1,132 @@
+[root@worker-node home]# time sudo podman run --volume /data:/data -it nvcr.io/nvidia/tensorflow:19.11-tf1-py3 python3 /data/benchmarks/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py --device=cpu --data_format=NHWC --batch_size=32 --model=resnet50 --variable_update=parameter_server
+                                                                                                                                                
+================
+== TensorFlow ==
+================
+
+NVIDIA Release 19.11-tf1 (build 8788896)
+TensorFlow Version 1.15.0
+
+Container image Copyright (c) 2019, NVIDIA CORPORATION.  All rights reserved.
+Copyright 2017-2019 The TensorFlow Authors.  All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION.  All rights reserved.
+NVIDIA modifications are covered by the license terms that apply to the underlying project or file.
+
+NOTE: MOFED driver for multi-node communication was not detected.
+      Multi-node communication performance may be reduced.
+
+2021-04-29 07:01:33.102094: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.2
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/compat/v2_compat.py:68: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+2021-04-29 07:01:36.275019: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2100000000 Hz
+2021-04-29 07:01:36.286520: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x58fcce0 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-04-29 07:01:36.286580: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2021-04-29 07:01:36.293658: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2021-04-29 07:01:36.437014: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x58fdae0 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2021-04-29 07:01:36.437086: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Tesla T4, Compute Capability 7.5
+2021-04-29 07:01:36.438979: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: Tesla T4 major: 7 minor: 5 memoryClockRate(GHz): 1.59
+pciBusID: 0000:86:00.0
+2021-04-29 07:01:36.439050: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.2
+2021-04-29 07:01:36.443797: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2021-04-29 07:01:36.447929: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2021-04-29 07:01:36.448573: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2021-04-29 07:01:36.452961: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2021-04-29 07:01:36.455614: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2021-04-29 07:01:36.463553: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2021-04-29 07:01:36.465801: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0
+2021-04-29 07:01:36.465855: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.2
+2021-04-29 07:01:36.842570: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1159] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-04-29 07:01:36.842614: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1165]      0 
+2021-04-29 07:01:36.842621: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 0:   N 
+2021-04-29 07:01:36.843810: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 14003 MB memory) -> physical GPU (device: 0, name: Tesla T4, pci bus id: 0000:86:00.0, compute capability: 7.5)
+TensorFlow:  1.15
+Model:       resnet50
+Dataset:     imagenet (synthetic)
+Mode:        training
+SingleSess:  False
+Batch size:  32 global
+             32 per device
+Num batches: 100
+Num epochs:  0.00
+Devices:     ['/cpu:0']
+NUMA bind:   False
+Data format: NHWC
+Optimizer:   sgd
+Variables:   parameter_server
+==========
+Generating training model
+WARNING:tensorflow:From /data/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+W0429 07:01:36.886389 140696254785344 deprecation.py:323] From /data/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+W0429 07:01:36.888443 140696254785344 deprecation.py:323] From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+WARNING:tensorflow:From /data/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+W0429 07:01:36.941340 140696254785344 deprecation.py:323] From /data/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/ops/losses/losses_impl.py:121: where (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+W0429 07:01:39.019047 140696254785344 deprecation.py:323] From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/ops/losses/losses_impl.py:121: where (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+Initializing graph
+WARNING:tensorflow:From /data/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+W0429 07:01:39.973716 140696254785344 deprecation.py:323] From /data/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+2021-04-29 07:01:40.325181: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: Tesla T4 major: 7 minor: 5 memoryClockRate(GHz): 1.59
+pciBusID: 0000:86:00.0
+2021-04-29 07:01:40.325247: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.2
+2021-04-29 07:01:40.325287: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2021-04-29 07:01:40.325299: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2021-04-29 07:01:40.325312: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2021-04-29 07:01:40.325323: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2021-04-29 07:01:40.325336: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2021-04-29 07:01:40.325347: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2021-04-29 07:01:40.326587: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0
+2021-04-29 07:01:40.326639: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1159] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-04-29 07:01:40.326649: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1165]      0 
+2021-04-29 07:01:40.326665: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 0:   N 
+2021-04-29 07:01:40.327670: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 14003 MB memory) -> physical GPU (device: 0, name: Tesla T4, pci bus id: 0000:86:00.0, compute capability: 7.5)
+INFO:tensorflow:Running local_init_op.
+I0429 07:01:41.042707 140696254785344 session_manager.py:500] Running local_init_op.
+INFO:tensorflow:Done running local_init_op.
+I0429 07:01:41.169822 140696254785344 session_manager.py:502] Done running local_init_op.
+Running warm up
+Done warm up
+Step	Img/sec	total_loss
+1	images/sec: 9.5 +/- 0.0 (jitter = 0.0)	8.108
+10	images/sec: 9.6 +/- 0.0 (jitter = 0.2)	8.122
+20	images/sec: 9.7 +/- 0.0 (jitter = 0.1)	7.983
+30	images/sec: 9.7 +/- 0.0 (jitter = 0.1)	7.780
+40	images/sec: 9.7 +/- 0.0 (jitter = 0.1)	7.849
+50	images/sec: 9.7 +/- 0.0 (jitter = 0.2)	7.779
+60	images/sec: 9.7 +/- 0.0 (jitter = 0.2)	7.825
+70	images/sec: 9.8 +/- 0.0 (jitter = 0.2)	7.839
+80	images/sec: 9.8 +/- 0.0 (jitter = 0.2)	7.818
+90	images/sec: 9.8 +/- 0.0 (jitter = 0.2)	7.647
+100	images/sec: 9.8 +/- 0.0 (jitter = 0.1)	7.913
+----------------------------------------------------------------
+total images/sec: 9.78
+----------------------------------------------------------------
+
+real	6m16.572s
+user	0m0.694s
+sys	0m0.467s
+[root@worker-node home]# 

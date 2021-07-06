@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\thera\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\thera\\.nuget\\packages"
+    ]
+  }
+}

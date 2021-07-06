@@ -1,0 +1,25 @@
+https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/cuda-rhel8.repo
+https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/cuda-rhel8.repo
+
+Steps to Graceful disconnect:
+kubectl drain worker-node --ignore-daemonsets ]-- graceful disconnect of worker node
+perfrom maintainence, afterwards:
+kubectl uncordon worker-node ]-- afterwards to tell Kubernetes that it can resume scheduling new pods onto the node. 
+
+Should show as ready for all nodes.
+
+INCASE of worker node not ready:
+use kubectl decribe, kubectl logs, journalctl -u kubelet | grep <Specified time frame eg.'String'>
+	possibly is worker-node kubelet service is not active:
+	If not active: disable swapoff (root): swapoff -a 
+	Check
+
+
+docker pull nvcr.io/nvidia/cuda:10.2-runtime-ubi8
+
+
+
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.repo | sudo tee /etc/yum.repos.d/nvidia-container-runtime.repo
+
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | tee /etc/yum.repos.d/nvidia-docker.repo

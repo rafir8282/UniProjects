@@ -1,0 +1,67 @@
+﻿@model WDPAssignment2.Models.MachineLearningCompaniesFeedback
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Feedback on Machine Learning Companies</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PostDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PostDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Heading)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Heading)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StarRating)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StarRating)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MessageContent)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MessageContent)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Like)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Like)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dislike)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dislike)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TopicTitle)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TopicTitle)
+        </dd>
+    </dl>
+</div>
+<div style="padding-left: 25px;">
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    |
+    <a asp-action="Index">Back to List</a>
+</div>

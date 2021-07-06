@@ -1,0 +1,66 @@
+﻿@model WDPAssignment2.Models.MachineLearningCompaniesFeedback
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>MachineLearningCompaniesFeedback</h4>
+<hr />
+<div class="row">
+    <div class="container-fluid" style="padding-right: 25px;">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PostDate" class="control-label">Date</label>
+                <input asp-for="PostDate" class="form-control" readonly />
+                <span asp-validation-for="PostDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label">Username</label>
+                <input asp-for="UserName" class="form-control" readonly />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Heading" class="control-label">Heading</label>
+                <input asp-for="Heading" class="form-control" placeholder="Enter a topic for your feedback" />
+                <span asp-validation-for="Heading" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TopicTitle" class="control-label">Select a Company</label>
+                <select asp-for="TopicTitle" class="form-control">
+                    <option value="" selected disabled>Select a Company</option>
+                    <option>IBN</option>
+                    <option>Amazon</option>
+                    <option>Google</option>
+                    <option>Microsoft</option>
+                    <option>Oracle</option>
+                    <option>SAS</option>
+                </select>
+                <span asp-validation-for="TopicTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StarRating" class="control-label">Your Rating</label>
+                <input asp-for="StarRating" class="form-control" max="5" min="0" />
+                <span asp-validation-for="StarRating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MessageContent" class="control-label"></label>
+                <textarea asp-for="MessageContent" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="MessageContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Home" asp-action="MachineLearning" style="padding-left: 25px;">Back to Machine Learning Page</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

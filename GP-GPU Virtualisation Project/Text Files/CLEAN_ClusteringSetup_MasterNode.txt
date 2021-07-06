@@ -1,0 +1,182 @@
+[root@master-node home]# kubeadm reset
+[reset] Reading configuration from the cluster...
+[reset] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
+[reset] WARNING: Changes made to this host by 'kubeadm init' or 'kubeadm join' will be reverted.
+[reset] Are you sure you want to proceed? [y/N]: y
+[preflight] Running pre-flight checks
+[reset] Removing info for node "master-node" from the ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[reset] Stopping the kubelet service
+[reset] Unmounting mounted directories in "/var/lib/kubelet"
+[reset] Deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]
+[reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
+[reset] Deleting contents of stateful directories: [/var/lib/etcd /var/lib/kubelet /var/lib/dockershim /var/run/kubernetes /var/lib/cni]
+
+The reset process does not clean CNI configuration. To do so, you must remove /etc/cni/net.d
+
+The reset process does not reset or clean up iptables rules or IPVS tables.
+If you wish to reset iptables, you must do so manually by using the "iptables" command.
+
+If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)
+to reset your system's IPVS tables.
+
+The reset process does not clean your kubeconfig files and you must remove them manually.
+Please, check the contents of the $HOME/.kube/config file.
+[root@master-node home]# kubeadm init --apiserver-advertise-address=192.168.18.138 --pod-network-cidr=10.244.0.0/16
+[init] Using Kubernetes version: v1.21.0
+[preflight] Running pre-flight checks
+	[WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+	[WARNING Hostname]: hostname "master-node" could not be reached
+	[WARNING Hostname]: hostname "master-node": lookup master-node on 1.1.1.1:53: no such host
+[preflight] Pulling images required for setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+[certs] Using certificateDir folder "/etc/kubernetes/pki"
+[certs] Generating "ca" certificate and key
+[certs] Generating "apiserver" certificate and key
+[certs] apiserver serving cert is signed for DNS names [kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local master-node] and IPs [10.96.0.1 192.168.18.138]
+[certs] Generating "apiserver-kubelet-client" certificate and key
+[certs] Generating "front-proxy-ca" certificate and key
+[certs] Generating "front-proxy-client" certificate and key
+[certs] Generating "etcd/ca" certificate and key
+[certs] Generating "etcd/server" certificate and key
+[certs] etcd/server serving cert is signed for DNS names [localhost master-node] and IPs [192.168.18.138 127.0.0.1 ::1]
+[certs] Generating "etcd/peer" certificate and key
+[certs] etcd/peer serving cert is signed for DNS names [localhost master-node] and IPs [192.168.18.138 127.0.0.1 ::1]
+[certs] Generating "etcd/healthcheck-client" certificate and key
+[certs] Generating "apiserver-etcd-client" certificate and key
+[certs] Generating "sa" key and public key
+[kubeconfig] Using kubeconfig folder "/etc/kubernetes"
+[kubeconfig] Writing "admin.conf" kubeconfig file
+[kubeconfig] Writing "kubelet.conf" kubeconfig file
+[kubeconfig] Writing "controller-manager.conf" kubeconfig file
+[kubeconfig] Writing "scheduler.conf" kubeconfig file
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Starting the kubelet
+[control-plane] Using manifest folder "/etc/kubernetes/manifests"
+[control-plane] Creating static Pod manifest for "kube-apiserver"
+[control-plane] Creating static Pod manifest for "kube-controller-manager"
+[control-plane] Creating static Pod manifest for "kube-scheduler"
+[etcd] Creating static Pod manifest for local etcd in "/etc/kubernetes/manifests"
+[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests". This can take up to 4m0s
+[kubelet-check] Initial timeout of 40s passed.
+[apiclient] All control plane components are healthy after 66.505181 seconds
+[upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[kubelet] Creating a ConfigMap "kubelet-config-1.21" in namespace kube-system with the configuration for the kubelets in the cluster
+[upload-certs] Skipping phase. Please see --upload-certs
+[mark-control-plane] Marking the node master-node as control-plane by adding the labels: [node-role.kubernetes.io/master(deprecated) node-role.kubernetes.io/control-plane node.kubernetes.io/exclude-from-external-load-balancers]
+[mark-control-plane] Marking the node master-node as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+[bootstrap-token] Using token: cdrzf8.e0hss3ji1b1e3o5y
+[bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+[bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to get nodes
+[bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[bootstrap-token] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[bootstrap-token] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+[bootstrap-token] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
+[kubelet-finalize] Updating "/etc/kubernetes/kubelet.conf" to point to a rotatable kubelet client certificate and key
+[addons] Applied essential addon: CoreDNS
+[addons] Applied essential addon: kube-proxy
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.18.138:6443 --token cdrzf8.e0hss3ji1b1e3o5y \
+	--discovery-token-ca-cert-hash sha256:8d7f5a00806803d4b512cb5e541b57080a56c87f183580b4bf175224d2d4d36c 
+[root@master-node home]# ^C
+[root@master-node home]# su master
+[master@master-node home]$ mkdir -p $HOME/.kube
+[master@master-node home]$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+[sudo] password for master: 
+cp: overwrite '/home/master/.kube/config'? y
+[master@master-node home]$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+[master@master-node home]$ sudo su
+[root@master-node home]# kubectl get pods -o wide --all-namespaces
+Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")
+[root@master-node home]# kubectl get pods -o wide --all-namespaces
+Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")
+[root@master-node home]# su master
+[master@master-node home]$ kubectl get pods -o wide --all-namespaces
+NAMESPACE     NAME                                  READY   STATUS    RESTARTS   AGE     IP               NODE          NOMINATED NODE   READINESS GATES
+kube-system   coredns-558bd4d5db-4zxhl              1/1     Running   0          2m47s   10.244.0.2       master-node   <none>           <none>
+kube-system   coredns-558bd4d5db-jhblj              1/1     Running   0          2m47s   10.244.0.3       master-node   <none>           <none>
+kube-system   etcd-master-node                      1/1     Running   0          3m2s    192.168.18.138   master-node   <none>           <none>
+kube-system   kube-apiserver-master-node            1/1     Running   0          3m2s    192.168.18.138   master-node   <none>           <none>
+kube-system   kube-controller-manager-master-node   1/1     Running   0          3m1s    192.168.18.138   master-node   <none>           <none>
+kube-system   kube-proxy-8dhfj                      1/1     Running   0          2m47s   192.168.18.138   master-node   <none>           <none>
+kube-system   kube-scheduler-master-node            1/1     Running   0          3m1s    192.168.18.138   master-node   <none>           <none>
+[master@master-node home]$ kubectl get nodes
+NAME          STATUS   ROLES                  AGE     VERSION
+master-node   Ready    control-plane,master   3m41s   v1.21.0
+[master@master-node home]$ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml
+Warning: policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+podsecuritypolicy.policy/psp.flannel.unprivileged created
+Warning: rbac.authorization.k8s.io/v1beta1 ClusterRole is deprecated in v1.17+, unavailable in v1.22+; use rbac.authorization.k8s.io/v1 ClusterRole
+clusterrole.rbac.authorization.k8s.io/flannel created
+Warning: rbac.authorization.k8s.io/v1beta1 ClusterRoleBinding is deprecated in v1.17+, unavailable in v1.22+; use rbac.authorization.k8s.io/v1 ClusterRoleBinding
+clusterrolebinding.rbac.authorization.k8s.io/flannel created
+serviceaccount/flannel created
+configmap/kube-flannel-cfg created
+daemonset.apps/kube-flannel-ds-amd64 created
+daemonset.apps/kube-flannel-ds-arm64 created
+daemonset.apps/kube-flannel-ds-arm created
+daemonset.apps/kube-flannel-ds-ppc64le created
+daemonset.apps/kube-flannel-ds-s390x created
+[master@master-node home]$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml 
+namespace/kubernetes-dashboard created
+serviceaccount/kubernetes-dashboard created
+service/kubernetes-dashboard created
+secret/kubernetes-dashboard-certs created
+secret/kubernetes-dashboard-csrf created
+secret/kubernetes-dashboard-key-holder created
+configmap/kubernetes-dashboard-settings created
+role.rbac.authorization.k8s.io/kubernetes-dashboard created
+clusterrole.rbac.authorization.k8s.io/kubernetes-dashboard created
+rolebinding.rbac.authorization.k8s.io/kubernetes-dashboard created
+clusterrolebinding.rbac.authorization.k8s.io/kubernetes-dashboard created
+deployment.apps/kubernetes-dashboard created
+service/dashboard-metrics-scraper created
+deployment.apps/dashboard-metrics-scraper created
+[master@master-node home]$ kubectl get pods --all-namespaces
+NAMESPACE              NAME                                         READY   STATUS              RESTARTS   AGE
+kube-system            coredns-558bd4d5db-4zxhl                     1/1     Running             0          5m50s
+kube-system            coredns-558bd4d5db-jhblj                     1/1     Running             0          5m50s
+kube-system            etcd-master-node                             1/1     Running             0          6m5s
+kube-system            kube-apiserver-master-node                   1/1     Running             0          6m5s
+kube-system            kube-controller-manager-master-node          1/1     Running             0          6m4s
+kube-system            kube-flannel-ds-amd64-8xxcm                  1/1     Running             0          55s
+kube-system            kube-proxy-8dhfj                             1/1     Running             0          5m50s
+kube-system            kube-scheduler-master-node                   1/1     Running             0          6m4s
+kubernetes-dashboard   dashboard-metrics-scraper-5594697f48-x6qf9   0/1     ContainerCreating   0          15s
+kubernetes-dashboard   kubernetes-dashboard-57c9bfc8c8-qmzdt        0/1     ContainerCreating   0          15s
+[master@master-node home]$ kubectl get pods --all-namespaces
+
+NAMESPACE              NAME                                         READY   STATUS    RESTARTS   AGE
+kube-system            coredns-558bd4d5db-4zxhl                     1/1     Running   0          6m12s
+kube-system            coredns-558bd4d5db-jhblj                     1/1     Running   0          6m12s
+kube-system            etcd-master-node                             1/1     Running   0          6m27s
+kube-system            kube-apiserver-master-node                   1/1     Running   0          6m27s
+kube-system            kube-controller-manager-master-node          1/1     Running   0          6m26s
+kube-system            kube-flannel-ds-amd64-8xxcm                  1/1     Running   0          77s
+kube-system            kube-proxy-8dhfj                             1/1     Running   0          6m12s
+kube-system            kube-scheduler-master-node                   1/1     Running   0          6m26s
+kubernetes-dashboard   dashboard-metrics-scraper-5594697f48-x6qf9   1/1     Running   0          37s
+kubernetes-dashboard   kubernetes-dashboard-57c9bfc8c8-qmzdt        1/1     Running   0          37s
+[master@master-node home]$ 
+[master@master-node home]$ kubectl proxy
+Starting to serve on 127.0.0.1:8001
+

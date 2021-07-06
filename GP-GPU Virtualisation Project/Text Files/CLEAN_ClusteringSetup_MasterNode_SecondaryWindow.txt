@@ -1,0 +1,31 @@
+[root@master-node home]# su master
+[master@master-node home]$ kubectl create serviceaccount dashboard -n default
+serviceaccount/dashboard created
+[master@master-node home]$   kubectl create clusterrolebinding dashboard-admin -n default --clusterrole=cluster-admin --serviceaccount=default:dashboard
+clusterrolebinding.rbac.authorization.k8s.io/dashboard-admin created
+[master@master-node home]$ kubectl get secret $(kubectl get serviceaccount dashboard -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode
+eyJhbGciOiJSUzI1NiIsImtpZCI6IncwREZBbzNOMU1ldHJkT3hQUUdsV0RaVjZLWmMwcHNEeHlCeXowM2g5QTgifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRhc2hib2FyZC10b2tlbi1xN3h4YyIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJkYXNoYm9hcmQiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJjOTFlNmMzMy0wOTljLTRjOWEtOWIyMi04ZDkzZGQ3MmFkOGUiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6ZGVmYXVsdDpkYXNoYm9hcmQifQ.QdgA1-2QtIt4mcfcrGMPKa4CtsAX2t5BUKkWxjobHkGEUZIQHT1vvi5s_lHvPOSTOCZ_Kc6ZMJVX7rigDClrlsnPDRuH6v6zW_jobfWUGjaObkA7waO7mizF2ba3u13dabtjPZtgfx-lwhpYR20n30-L1R_OYHTJtvjE5iv5VCVb74SoS59d1E01p2Z4DOFHPQeuMa1FX7F0yEgC6LTuLzgFE1cmjPjofqHtApMwZDPZ_tdOO1JHeg1uVzYuR_bPCUCPpyOjE0T-I-iNVmIBEieXN3zw0v-AjBo1HaLvxe3IoeKrM3-zDq_zC0kj9su9lkA9Dvx-kETvwtHc9eY0Tg[master@master-node home]$ kubectl get nodes -o wide--all-namespaces
+error: unable to match a printer suitable for the output format "wide--all-namespaces", allowed formats are: custom-columns,custom-columns-file,go-template,go-template-file,json,jsonpath,jsonpath-as-json,jsonpath-file,name,template,templatefile,wide,yaml
+[master@master-node home]$ kubectl get nodes -o wide --all-namespaces
+NAME          STATUS   ROLES                  AGE   VERSION   INTERNAL-IP      EXTERNAL-IP   OS-IMAGE                               KERNEL-VERSION                 CONTAINER-RUNTIME
+master-node   Ready    control-plane,master   14m   v1.21.0   192.168.18.138   <none>        Red Hat Enterprise Linux 8.2 (Ootpa)   4.18.0-193.28.1.el8_2.x86_64   docker://20.10.5
+worker-node   Ready    <none>                 55s   v1.21.0   192.168.18.139   <none>        Red Hat Enterprise Linux 8.2 (Ootpa)   4.18.0-193.28.1.el8_2.x86_64   docker://20.10.5
+[master@master-node home]$ kubectl get nodes --all-namespaces
+NAME          STATUS   ROLES                  AGE   VERSION
+master-node   Ready    control-plane,master   14m   v1.21.0
+worker-node   Ready    <none>                 66s   v1.21.0
+[master@master-node home]$ kubectl get po --all-namespaces
+NAMESPACE              NAME                                         READY   STATUS    RESTARTS   AGE
+kube-system            coredns-558bd4d5db-4zxhl                     1/1     Running   0          15m
+kube-system            coredns-558bd4d5db-jhblj                     1/1     Running   0          15m
+kube-system            etcd-master-node                             1/1     Running   0          15m
+kube-system            kube-apiserver-master-node                   1/1     Running   0          15m
+kube-system            kube-controller-manager-master-node          1/1     Running   0          15m
+kube-system            kube-flannel-ds-amd64-8xxcm                  1/1     Running   0          10m
+kube-system            kube-flannel-ds-amd64-ffzkv                  1/1     Running   0          2m15s
+kube-system            kube-proxy-8dhfj                             1/1     Running   0          15m
+kube-system            kube-proxy-8fvzh                             1/1     Running   0          2m15s
+kube-system            kube-scheduler-master-node                   1/1     Running   0          15m
+kubernetes-dashboard   dashboard-metrics-scraper-5594697f48-x6qf9   1/1     Running   0          9m30s
+kubernetes-dashboard   kubernetes-dashboard-57c9bfc8c8-qmzdt        1/1     Running   0          9m30s
+[master@master-node home]$ 

@@ -1,0 +1,74 @@
+podman PID: 276102
+
+_____GAMEPLAN_____
+
+1. Reinstall OS (DONE)
+2. Install Anydesk - ensure its working enable elevated privileges (DONE)
+3. Install NVIDIA 440 stream driver - ensure nouveau driver is blackilsted (DONE)
+4. Reboot check if os is running well (DONE)
+5. Set static IP address (DONE) and set hostnamectl as worker-node (DONE)
+6. install docker, kubeadm, kubectl, kubelet (DONE)
+7. Get container with gpu up and test with tensorflow (DONE)
+8. export podman yaml for kubernetes (REDUNDANT)
+9. import yaml script (REDUNDANT)
+10. Update the master node to 8.3
+11. Delete the old worker node on kubernetes dashboard (DONE)
+12. Get different version of dashboard to show graphs that are the final outcome of project
+13. Join the new worker node (DONE)
+14. DONE
+
+kubeadm token create --print-join-command
+
+sudo docker run --rm --gpus all nvidia/cuda:10.2-base nvidia-smi ]-- Runnning nvidia-smi on docker
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+BESPOKE Commands
+
+Main command to initialise GPU-enabled container and ResNet50 Training
+time sudo docker run --gpus all -it --rm -v /data:/data nvcr.io/nvidia/tensorflow:19.11-tf1-py3 python3 /data/benchmarks/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py --data_format=NHWC --batch_size=32 --model=resnet50 --variable_update=parameter_server
+
+time sudo podman run --volume /data:/data -it nvcr.io/nvidia/tensorflow:19.11-tf1-py3 python3 /data/benchmarks/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py --device=cpu --data_format=NHWC --batch_size=32 --model=resnet50 --variable_update=parameter_server
+time sudo podman run --volume /data:/data -it nvcr.io/nvidia/tensorflow:19.11-tf1-py3 python3 /data/benchmarks/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py --num_gpus=1 --data_format=NHWC --batch_size=32 --model=resnet50 --variable_update=parameter_server
+
+- `time` outputs time delta from entering command and finished output
+- `-it` means run in interactive mode
+- `--rm` will delete the container when finishe=
+- `-v` is the mounting directory
+- `local_dir` is the directory or file from your host system (absolute path) that you want to access from inside your container.  For example, the `local_dir` in the following path is `/home/jsmith/data/mnist`.  
+
+   ```
+   -v /home/jsmith/data/mnist:/data/mnist
+   ```
+
+   If you are inside the container, for example, `ls /data/mnist`, you will see the same files as if you issued the `ls /home/jsmith/data/mnist` command from outside the container.
+
+- `container_dir` is the target directory when you are inside your container.  For example, `/data/mnist` is the target directory in the example:
+
+   ```
+   -v /home/jsmith/data/mnist:/data/mnist
+   ```
+
+- `xx.xx` is the container version. For example, We are using `19.11`.
+- `tfx` is the version of TensorFlow. For example, `tf1` or `tf2`.
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+version: "1"
+
+services:
+  teslatensor:
+    image: teslatensor:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+       - /data/app:/app 
+
+
+kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/1.0.0-beta6/nvidia-device-plugin.yml
+
+kubectl run gpu-enabled-tensorflow --namespace=kube-system --labels="GPU=true" --image=nvcr.io/nvidia/tensorflow:19.11-tf1-py3
+
+docker run --gpus all --rm nvcr.io/nvidia/cuda:10.2-runtime-ubi8 nvidia-smi ]-- Check smi on docker
+
+
+
+

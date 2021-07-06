@@ -1,0 +1,394 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>Data Visualisation</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="js/xlsx.full.min.js"></script>
+        <script src="js/echarts-en.js"></script>
+        <script src="js/jquery.min.js"></script>
+    </head>
+    
+    <body>
+        <div id="backgroundspecial">
+            <div class="navbar">
+                <ul>
+                    <li style="float: left;"><a id="active" href="Visualisation.html">Data Visualisation</a></li>
+
+                    <li><a href="About.html">About</a></li>
+                    <li><a href="WorldMap.html">World Map</a></li>
+                    <li><a href="MachineLearning.html">Machine Learning</a></li>
+                    <li><a href="Home.html">Home</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="heading">
+            <h1 id="title">Data Visualisation</h1>
+            <h2 id="subtitle">"The greatest value of a picture is when it forces us to notice what we never expected to see." ~ John W. Tukey</h2>
+        </div>
+
+        <div class="background"></div>
+
+        <div style="width: 100%; padding: 20px; padding-bottom: 0px;">
+            <input id="select_file" type="file" />
+        </div>
+
+        <div id="container" style="height: 500px; padding: 20px;"></div>
+
+        <div class="background"></div>
+
+        <footer>
+            <table id="footer">
+                <tr>
+                    <td>
+                        <p>
+                            &copy; 2019 Rafi Rahman
+                        </p>
+                    </td>
+
+                    <td style="text-align: center;">
+                        <p>
+                            <a href="About.html">About and Contact Information</a>
+                        </p>
+                    </td>
+
+                    <td style="text-align: right;">
+                        <p>
+                            Social Media: <a href="https://www.facebook.com/data/"><img src="images/facebook.jpg" title="Facebook"></a>
+                            <a href="https://twitter.com/hashtag/datascience?lang=en"><img src="images/twitter.jpg" title="Twitter"></a>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </footer>
+
+        <script>
+            $(document).ready(function () {
+                $('#select_btn').click(function () {
+                    $('#select_file').trigger('click');
+                })
+
+                $('#select_file').change(function () {
+                    loadFile(this);
+                })
+            })
+        </script>
+
+        <script type="text/javascript">
+            var wb;
+            var schema = [];
+            var column = [];
+            var localData = [];
+            var selectArr;
+            var dom = document.getElementById("container");
+            var myChart = echarts.init(dom);
+            var app = {};
+
+            option = null;
+
+            function loadFile(obj) {
+                if (!obj.files) {
+                    return;
+                }
+
+                var f = obj.files[0];
+
+                if (!/\.xlsx$/g.test(f.name)) {
+                    alert('Only .xlsx file supported!');
+                    return;
+                }
+
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    myChart.clear;
+
+                    var data = e.target.result;
+
+                    wb = XLSX.read(data, {
+                        type: 'binary'
+                    });
+
+                    var jsonData = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {
+                        defval: '-'
+                    });
+
+                    column = [];
+                    localData = [column];
+
+                    for (var key in jsonData[0]) {
+                        localData[0].push(key);
+                    }
+
+                    for (var i = 0; i < jsonData.length; i++) {
+                        var row = [];
+                        localData.push(row);
+                        var x = 0;
+                        for (var k in jsonData[i]) {
+                            localData[i + 1].push(jsonData[i][k]);
+                            x++;
+                            if (x === schema.length * i)
+                                break;
+                        }
+                    }
+
+                    schema = column;
+
+                    console.log(localData);
+                    console.log(schema);
+
+                    getMultiBarChart(schema, localData);
+
+                    document.getElementById("gen").className = "gen";
+                };
+
+                reader.readAsBinaryString(f);
+            }
+
+            getMultiBarChart = function (schema, localData) {
+                function makeParallelAxis(schema) {
+                    var parallelAxis = [];
+
+                    for (var i = 1; i < schema.length; i++) {
+                        parallelAxis.push({
+                            dim: i,
+                            name: schema[i]
+                        });
+                    }
+
+                    return parallelAxis;
+                }
+
+                function generateButton(localData) {
+                    var parallelButton = [];
+
+                    for (var i = 1; i < localData.length; i++) {
+                        parallelButton.push({
+                            name: localData[i][0]
+                        });
+                    }
+
+                    return parallelButton;
+                }
+
+                function generateData(localData, index) {
+                    var col = [];
+                    var genData = [col, col];
+
+                    genData[0] = localData[0];
+                    genData[1] = localData[index];
+
+                    return genData;
+                }
+
+                function makeSeriesData(localData) {
+                    var seriesData = [];
+
+                    for (var i = 1; i < localData.length; i++) {
+                        seriesData.push({
+                            name: localData[i][0],
+                            type: 'parallel',
+                            smooth: true,
+
+                            lineStyle: {
+                                normal: {
+                                    color: '#00FF91',
+                                    width: 0.4,
+                                    opacity: 0.7,
+                                },
+                            },
+
+                            activeOpacity: 1,
+                            inactiveOpacity: 0.1,
+                            z: 100,
+                            blendMode: 'lighter',
+                            data: generateData(localData, i)
+                        });
+                    }
+
+                    return seriesData;
+                }
+
+                var expandWidth = Math.max(60, (($("#container").width() - 150) / Math.min(schema.length, 12)));
+
+                $(window).on('resize', function () {
+                    myChart.resize();
+                });
+
+                var icon1 =
+                    'M896 64H128c-35.296 0-64 28.704-64 64v768c0 35.296 28.704 64 64 64h768c35.296 0 64-28.704 64-64V128c0-35.296-28.704-64-64-64zM128 896V128h768l0.064 768H128z';
+                var icon2 =
+                    'path://M96 64h832a32 32 0 0 1 32 32v832a32 32 0 0 1-32 32H96a32 32 0 0 1-32-32V96a32 32 0 0 1 32-32z m648.64 244.032l-310.368 331.296-157.696-132.48a32 32 0 1 0-41.152 48.992l180.896 152a32 32 0 0 0 43.936-2.624L791.36 351.776a32 32 0 1 0-46.72-43.744z';
+                var iconCircleEmpty =
+                    'M512 992C246.912 992 32 777.088 32 512 32 246.912 246.912 32 512 32c265.088 0 480 214.912 480 480 0 265.088-214.912 480-480 480z m0-64c229.76 0 416-186.24 416-416S741.76 96 512 96 96 282.24 96 512s186.24 416 416 416zM741.216 344a32 32 0 0 1 46.816 43.616l-315.296 338.208a32 32 0 0 1-43.968 2.688l-193.344-162.368a32 32 0 1 1 41.152-48.992l170.08 142.816 294.56-316z';
+                var iconCircleFull =
+                    'M512 512m-448 0a448 448 0 1 0 896 0 448 448 0 1 0-896 0Z';
+
+                option = {
+                    tooltip: {
+                        trigger: 'item',
+                    },
+
+                    toolbox: {
+                        show: true,
+                        left: 10,
+
+                        feature: {
+                            myTool2: {
+                                show: true,
+                                title: 'ClearAll',
+                                icon: iconCircleEmpty,
+
+                                iconStyle: {
+                                    color: '#00FF91',
+                                },
+
+                                onclick: function () {
+                                    if (option.toolbox.feature.myTool2.icon == iconCircleEmpty) {
+                                        option.toolbox.feature.myTool2.icon = iconCircleFull;
+                                        option.toolbox.feature.myTool2.title = 'SelectAll';
+
+                                        var val = false;
+                                    } else {
+                                        option.toolbox.feature.myTool2.icon = iconCircleEmpty;
+                                        option.toolbox.feature.myTool2.title = 'ClearAll';
+
+                                        var val = true;
+                                    }
+
+                                    var obj = {};
+
+                                    for (var key in selectArr) {
+                                        obj[selectArr[key].name] = val;
+                                    }
+
+                                    option.legend.selected = obj;
+                                    myChart.setOption(option, true);
+                                }
+                            },
+
+                            dataView: {
+                                readOnly: false,
+                            },
+
+                            restore: {
+                            },
+
+                            saveAsImage: {
+                            }
+                        }
+                    },
+
+                    grid: {
+                        containLabel: true
+                    },
+
+                    legend: {
+                        type: 'scroll',
+                        top: 45,
+                        bottom: 10,
+                        left: 'left',
+                        orient: 'vertical',
+                        data: generateButton(localData),
+                        selected: {},
+                        icon: 'circle',
+
+                        textStyle: {
+                            color: 'rgba(255,255,255,0.5)'
+                        },
+
+                        selectedMode: 'multiple',
+
+                        formatter: function (name) {
+                            return echarts.format.truncateText(name.replace("CSMA ", ""), 120, '14px Microsoft Yahei', '');
+
+                        },
+
+                        tooltip: {
+                            show: true,
+                            trigger: 'item',
+                        },
+
+                        pageTextStyle: {
+                            color: 'rgba(255,255,255,0.5)'
+                        }
+                    },
+
+                    parallelAxis: makeParallelAxis(schema),
+
+                    parallel: {
+                        top: 45,
+                        left: 130,
+                        right: 10,
+                        bottom: 10,
+                        axisExpandable: true,
+                        axisExpandCenter: 0,
+                        axisExpandCount: 10,
+                        axisExpandWidth: expandWidth,
+                        axisExpandTriggerOn: 'mousemove',
+
+                        z: 100,
+
+                        parallelAxisDefault: {
+                            type: 'value',
+                            nameLocation: 'start',
+                            nameRotate: 25,
+
+                            nameTextStyle: {
+                                fontSize: 12
+                            },
+
+                            nameTruncate: {
+                                maxWidth: 170
+                            },
+
+                            nameGap: 20,
+                            splitNumber: 3,
+
+                            tooltip: {
+                                show: true
+                            },
+
+                            axisLine: {
+                                lineStyle: {
+                                    width: 1,
+                                    color: 'rgba(255,255,255,0.3)'
+                                }
+                            },
+
+                            axisTick: {
+                                show: false
+                            },
+
+                            splitLine: {
+                                show: false
+                            },
+
+                            z: 100
+                        }
+                    },
+
+                    series: makeSeriesData(localData)
+                };
+
+                myChart.setOption(option, true);
+
+                $(window).on('resize', function () {
+                    myChart.resize();
+                });
+
+                selectArr = myChart.getOption().legend[0].data;
+            };
+        </script>
+    </body>
+</html>

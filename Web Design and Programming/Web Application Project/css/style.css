@@ -1,0 +1,139 @@
+﻿body, html {
+    background-color: black;
+    color: white;
+    font-family: Courier New;
+    height: 100%;
+}
+
+.navbar {
+    padding: 0px;
+}
+
+.navbar ul {
+    list-style-type: none;
+    padding: 0px;
+    background-color: black;
+    width: 100%;
+}
+
+.navbar li {
+    float: right;
+}
+
+    .navbar li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+        .navbar li a:hover {
+            background-color: #333333;
+        }
+
+#active {
+    background-color: #32558C;
+}
+
+#title {
+    text-align: center;
+    font-size: 65px;
+}
+
+#subtitle {
+    text-align: center;
+    font-size: 25px;
+    padding: 10px;
+}
+
+.background {
+    height: 300px;
+    background-image: url(../images/datascience.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#backgroundspecial {
+    height: 343px;
+    background-image: url(../images/datascience.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+figure {
+    height: 300px;
+    width: 100%;
+}
+
+figcaption {
+    background: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    position: absolute;
+    visibility: hidden;
+    padding: 24px;
+}
+
+    figure:hover > figcaption {
+        visibility: visible;
+    }
+
+.homeiframe {
+    width: 100%;
+    height: 385px;
+}
+
+figure img {
+    width: 100%;
+    height: 100%;
+}
+
+figcaption h1 {
+    font-size: 24px;
+}
+
+.readmore {
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+    border: 2px solid white;
+}
+
+    .readmore:hover {
+        background-color: rgba(255, 255, 255, 100);
+        color: darkslategrey;
+    }
+
+footer {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+#footer {
+    width: 100%;
+}
+    
+    #footer img {
+        width: 20px;
+        height: 20px;
+    }
+
+.gridlabel {
+    text-align: center;
+    font-size: 25px;
+}
+
+.gridbutton {
+    height: 100px;
+    margin-bottom: 25px;
+    padding: 35px;
+}
+
+#footer a {
+    text-decoration: none;
+}

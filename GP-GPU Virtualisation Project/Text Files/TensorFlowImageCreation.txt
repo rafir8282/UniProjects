@@ -1,0 +1,88 @@
+[worker@worker-node data]$ docker run --gpus all -it --rm tensorflow/tensorflow:latest-gpu \
+>    python -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/create: dial unix /var/run/docker.sock: connect: permission denied.
+See 'docker run --help'.
+[worker@worker-node data]$ sudo docker run --gpus all -it --rm tensorflow/tensorflow:latest-gpu \
+>    python -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+[sudo] password for worker: 
+Unable to find image 'tensorflow/tensorflow:latest-gpu' locally
+latest-gpu: Pulling from tensorflow/tensorflow
+171857c49d0f: Pull complete 
+419640447d26: Pull complete 
+61e52f862619: Pull complete 
+2a93278deddf: Pull complete 
+c9f080049843: Pull complete 
+8189556b2329: Pull complete 
+c9db5d801625: Pull complete 
+1c370cc33248: Pull complete 
+91490cad11f8: Pull complete 
+39db22124f00: Pull complete 
+fc3e5b4f9be5: Pull complete 
+82f0e853e481: Pull complete 
+0e3f4c426c9e: Pull complete 
+bd7b74ac1111: Pull complete 
+69903a2e24bf: Pull complete 
+Digest: sha256:03e706e09b0425bb4f634a644c5d869f3b6d6c027411ccca14c18719121d3064
+Status: Downloaded newer image for tensorflow/tensorflow:latest-gpu
+2021-04-29 11:22:54.990910: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-04-29 11:22:57.107204: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-04-29 11:22:57.108149: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcuda.so.1
+2021-04-29 11:22:57.175876: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:86:00.0 name: Tesla T4 computeCapability: 7.5
+coreClock: 1.59GHz coreCount: 40 deviceMemorySize: 14.75GiB deviceMemoryBandwidth: 298.08GiB/s
+2021-04-29 11:22:57.176138: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-04-29 11:22:57.179494: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-04-29 11:22:57.179550: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-04-29 11:22:57.180956: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-04-29 11:22:57.181224: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-04-29 11:22:57.184565: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-04-29 11:22:57.185327: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.11
+2021-04-29 11:22:57.185494: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+2021-04-29 11:22:57.186710: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-04-29 11:22:57.187064: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-04-29 11:22:57.192504: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-04-29 11:22:57.193159: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:86:00.0 name: Tesla T4 computeCapability: 7.5
+coreClock: 1.59GHz coreCount: 40 deviceMemorySize: 14.75GiB deviceMemoryBandwidth: 298.08GiB/s
+2021-04-29 11:22:57.193181: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-04-29 11:22:57.193200: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-04-29 11:22:57.193212: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-04-29 11:22:57.193226: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-04-29 11:22:57.193238: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-04-29 11:22:57.193251: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-04-29 11:22:57.193263: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.11
+2021-04-29 11:22:57.193275: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+2021-04-29 11:22:57.194353: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-04-29 11:22:57.194383: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-04-29 11:22:57.743257: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1261] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-04-29 11:22:57.743295: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1267]      0 
+2021-04-29 11:22:57.743302: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1280] 0:   N 
+2021-04-29 11:22:57.745047: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1406] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 13960 MB memory) -> physical GPU (device: 0, name: Tesla T4, pci bus id: 0000:86:00.0, compute capability: 7.5)
+tf.Tensor(120.75479, shape=(), dtype=float32)
+[worker@worker-node data]$ docker run --gpus all -it tensorflow/tensorflow:latest-gpu bash
+docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/create: dial unix /var/run/docker.sock: connect: permission denied.
+See 'docker run --help'.
+[worker@worker-node data]$ sudo docker run --gpus all -it tensorflow/tensorflow:latest-gpu bash
+[sudo] password for worker: 
+
+________                               _______________                
+___  __/__________________________________  ____/__  /________      __
+__  /  _  _ \_  __ \_  ___/  __ \_  ___/_  /_   __  /_  __ \_ | /| / /
+_  /   /  __/  / / /(__  )/ /_/ /  /   _  __/   _  / / /_/ /_ |/ |/ / 
+/_/    \___//_/ /_//____/ \____//_/    /_/      /_/  \____/____/|__/
+
+
+WARNING: You are running this container as root, which can cause new files in
+mounted volumes to be created as the root user on your host machine.
+
+To avoid this, run the container by specifying your user's userid:
+
+$ docker run -u $(id -u):$(id -g) args...
+
+root@5c740b3e5442:/# docker run --gpus all -it tensorflow/tensorflow:latest-gpu bash
+bash: docker: command not found
+root@5c740b3e5442:/# ^C
+root@5c740b3e5442:/# exit
+exit
+[worker@worker-node data]$ 

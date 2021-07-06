@@ -1,0 +1,115 @@
+﻿@{
+    ViewData["Title"] = "Machine Learning";
+}
+
+<div class="text-center" style="padding: 0px 25px 20px 25px;">
+    <h1 class="display-2">Machine Learning</h1>
+    <h3>"Thanks to big data, machines can now be programmed to do the next thing right. But only humans can do the next right thing." ~ Dov Seidman</h3>
+</div>
+
+<div class="background3"></div>
+
+<div class="row" style="margin: 0px; padding: 25px 12.5px 0px 12.5px;">
+    <div class="col-md-6 col-sm-6">
+        <div class="gridbutton" style="background-color: lemonchiffon;" onclick="window.location.href = 'https://www.ibm.com/au-en/analytics/machine-learning';">
+            <p class="gridlabel">
+                <img src="~/images/ibm.png" />
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-6">
+        <div class="gridbutton" style="background-color: lightslategray;" onclick="window.location.href = 'https://aws.amazon.com/machine-learning/';">
+            <p class="gridlabel">
+                <img src="~/images/amazon.png" />
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12">
+        <div class="gridbutton" style="background-color: coral;" onclick="window.location.href = 'https://cloud.google.com/products/ai/';">
+            <p class="gridlabel">
+                <img src="~/images/google.png" />
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-6">
+        <div class="gridbutton" style="background-color: skyblue;" onclick="window.location.href = 'https://azure.microsoft.com/en-au/services/machine-learning-service/';">
+            <p class="gridlabel">
+                <img src="~/images/microsoft.png" />
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-6">
+        <div class="gridbutton" style="background-color: darkkhaki;" onclick="window.location.href = 'https://www.oracle.com/technetwork/database/options/oml/overview/index.html';">
+            <p class="gridlabel">
+                <img src="~/images/oracle.png" />
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12">
+        <div class="gridbutton" style="background-color: indianred;" onclick="window.location.href = 'https://www.sas.com/en_us/software/visual-data-mining-machine-learning.html';">
+            <p class="gridlabel">
+                <img src="~/images/sas.png" />
+            </p>
+        </div>
+    </div>
+</div>
+
+<iframe style="width: 100%; height: 575px;" src="https://www.youtube.com/embed/UzxYlbK2c7E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <p style="padding: 25px; padding-top: 35px; text-align: center;">Please <a href="~/Identity/Account/Login?returnUrl=~/Home/MachineLearning">login</a> or <a href="~/Identity/Account/Register?returnUrl=~/Home/MachineLearning">create an account</a> to post your discussion on this page.</p>
+}
+else
+{
+    <p style="padding: 25px; padding-top: 35px; text-align: center;">
+        <a asp-controller="MachineLearningCompaniesFeedbacks" asp-action="Create" class="btn btn-info">Submit your feedback</a>
+    </p>
+}
+
+<hr />
+
+<div>
+    @model IEnumerable<WDPAssignment2.Models.MachineLearningCompaniesFeedback>
+
+    @foreach (var item in Model)
+    {
+        <h2>@Html.DisplayFor(modelItem => item.Heading)</h2>
+        <h3 style="padding-left: 25px;">&#64; @Html.DisplayFor(modelItem => item.TopicTitle)</h3>
+        <p>
+            @{
+                for (int i = 0; i < item.StarRating; i++)
+                {
+                    <span style="color: #f8bd08; ">&#x2605;</span>
+                }
+                for (int i = 0; i < 5 - item.StarRating; i++)
+                {
+                    <span>&#x2606;</span>
+                }
+            }
+        </p>
+        <p>@Html.DisplayFor(modelItem => item.MessageContent)</p>
+        <p>Feedback by <b>@Html.DisplayFor(modelItem => item.UserName)</b> on @Html.DisplayFor(modelItem => item.PostDate)</p>
+
+        <div style="padding-left: 25px;">
+            <a asp-controller="MachineLearningCompaniesFeedbacks" asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-light">Details</a>
+            <a asp-controller="MachineLearningCompaniesFeedbacks" asp-action="IncreaseLike" asp-route-id="@item.Id" class="btn btn-success">Agree(@item.Like)</a>
+            <a asp-controller="MachineLearningCompaniesFeedbacks" asp-action="IncreaseDislike" asp-route-id="@item.Id" class="btn btn-danger">Disagree(@item.Dislike)</a>
+
+            @if (User.IsInRole("Manager"))
+            {
+                <span style="float: right; padding-right: 25px;">
+                    <a asp-controller="MachineLearningCompaniesFeedbacks" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-light">Edit</a>
+                    <a asp-controller="MachineLearningCompaniesFeedbacks" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-light">Delete</a>
+                </span>
+            }
+        </div>
+
+        <hr />
+    }
+</div>

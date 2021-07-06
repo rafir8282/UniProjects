@@ -1,0 +1,129 @@
+﻿body {
+    background-color: black;
+    color: white;
+    height: 100%;
+}
+
+.background {
+    height: 450px;
+    background-image: url(../images/datascience.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.background2 {
+    height: 450px;
+    background-image: url(../images/datascience2.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.background3 {
+    height: 450px;
+    background-image: url(../images/machine4.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.background4 {
+    height: 450px;
+    background-image: url(../images/visualisation2.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.background5 {
+    height: 450px;
+    background-image: url(../images/world.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.background6 {
+    height: 450px;
+    background-image: url(../images/datascience3.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+figure {
+    height: 350px;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+    figure img {
+        width: 100%;
+        height: 100%;
+    }
+
+    figure:hover > figcaption {
+        visibility: visible;
+    }
+
+figcaption {
+    background: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    position: absolute;
+    visibility: hidden;
+    padding: 50px;
+}
+
+    figcaption h1 {
+        font-size: 25px;
+    }
+
+.readmore {
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+    border: 2px solid white;
+}
+
+    .readmore:hover {
+        background-color: rgba(255, 255, 255, 100);
+        color: darkslategrey;
+    }
+
+.gridlabel img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 75px;
+}
+
+.gridbutton {
+    height: 110px;
+    padding: 17.5px;
+    margin-bottom: 25px;
+    cursor: pointer;
+}
+
+.row {
+    padding-left: 25px;
+    margin-right: 0px;
+}
+
+h1, h2, h4, h5, p {
+    padding-left: 25px;
+}
+
+form h4 {
+    padding-left: 0px;
+}
+
+form p {
+    padding-left: 0px;
+}
+
+tr {
+    color: white;
+}
+
+hr {
+    border-color: white;
+}
