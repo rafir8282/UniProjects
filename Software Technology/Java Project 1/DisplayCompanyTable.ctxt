@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=DisplayCompanyTable
+comment0.text=\r\n\ This\ class\ is\ for\ displaying\ food\ tables.\r\n\r\n\ @author\ Rafi\ Rahman\r\n\ @version\ 31/10/2018\r\n
+comment1.params=
+comment1.target=DisplayCompanyTable()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ DisplayCompanyTable.\r\n
+numComments=2

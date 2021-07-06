@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=CompanyDeal
+comment1.params=idz\ companyNamez\ taxExemptz\ pickupBayz
+comment1.target=CompanyDeal(java.lang.String,\ java.lang.String,\ boolean,\ java.lang.String)
+comment2.params=
+comment2.target=java.lang.String\ toString()
+numComments=3

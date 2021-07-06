@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MTAssignmentOne</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_list">ListActivity</string>
+    <string name="title_activity_food_view">FoodViewActivity</string>
+    <string name="title_activity_food_recogniser">FoodRecogniserActivity</string>
+</resources>

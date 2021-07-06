@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Tables
+comment0.text=\r\n\ Tables\r\n\r\n\ @author\ R.\ Cox\r\n\ @version\ 29/8/2018\r\n
+comment1.params=
+comment1.target=Tables()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Tables.\r\n
+comment2.params=foodIdz
+comment2.target=int\ lookupFoodNum(java.lang.String)
+comment2.text=\r\n\ Returns\ -1\ if\ foodId\ is\ not\ found,\ otherwise\ a\ number\ which\ is\ the\ parallel\ arrays\ index.\r\n
+comment3.params=companyIDz
+comment3.target=int\ lookupCompanyNum(java.lang.String)
+comment3.text=\r\n\ Returns\ -1\ if\ companyID\ is\ not\ found,\ otherwise\ a\ number\ which\ is\ the\ parallel\ arrays\ index.\ (Rafi\ Rahman)\r\n
+comment4.params=foodIdz
+comment4.target=void\ printFoodDetails(java.lang.String)
+comment4.text=\r\n\ Prints\ out\ the\ food\ details.\r\n
+comment5.params=companyIDz
+comment5.target=void\ printCompanyDetails(java.lang.String)
+comment5.text=\r\n\ Prints\ out\ the\ company\ details.\ (Rafi\ Rahman)\r\n
+comment6.params=coyId
+comment6.target=CompanyDeal\ lookupCompany(java.lang.String)
+numComments=7
