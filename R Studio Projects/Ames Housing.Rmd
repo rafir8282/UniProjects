@@ -2,7 +2,7 @@
 title: "Ames Housing Final Project"
 author: "Rafi Rahman (u3191010)"
 date: "09/05/2021"
-geometry: margin = 1.27 cm
+geometry: margin = 2.54 cm
 abstract: This report analyses the Ames Housing statistics from 2006 to 2010. The data is cleaned up and explored. Along with providing a linear regression model and estimation of sale prices, questions about the relevance of the data variables to the sale prices of properties are asked and addressed. The study ends with suggestions and findings based on the report's material.
 output:
   pdf_document:
